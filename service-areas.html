@@ -77,7 +77,17 @@
         <p>Not sure if you're in our coverage area? Give us a call — we regularly travel beyond our core territory for the right project.</p>
         <a href="contact.html" class="btn btn-accent">Check Your Location</a>
       </div>
-      <div class="map-block">Service Area Map</div>
+      <div>
+        <div id="service-map" class="map-block map-block-lg">
+          <div class="map-placeholder-msg">
+            Interactive map with pins for every service area loads once a Google Maps API key is added in <code>assets/js/maps-config.js</code>.
+          </div>
+        </div>
+        <div class="map-legend">
+          <span><span class="dot hq"></span> Headquarters</span>
+          <span><span class="dot area"></span> Service Area</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -140,5 +150,7 @@
 </div>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/maps-config.js"></script>
+<script src="assets/js/service-map.js"></script>
 </body>
 </html>
