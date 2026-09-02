@@ -128,6 +128,8 @@ header.site-header {
   padding: 14px 0;
 }
 .brand { display: flex; align-items: center; gap: 12px; }
+.brand-logo-img { height: 48px; width: auto; display: block; }
+footer .brand-logo-img { height: 42px; }
 .brand-mark {
   width: 46px; height: 46px;
   border-radius: 10px;
@@ -266,6 +268,7 @@ nav.main-nav a.nav-link.active { background: var(--gray-100); color: var(--steel
   color: var(--gray-600); letter-spacing: 0.5px; text-transform: uppercase;
   opacity: 0.75;
 }
+.partner-logos img { height: 38px; width: auto; object-fit: contain; opacity: 0.9; }
 
 /* Value props */
 .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
@@ -300,11 +303,13 @@ nav.main-nav a.nav-link.active { background: var(--gray-100); color: var(--steel
 }
 .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .card-media {
-  height: 150px;
+  height: 170px;
   background: linear-gradient(135deg, var(--steel-light), var(--navy-dark));
   display: flex; align-items: center; justify-content: center;
   color: rgba(255,255,255,0.9);
+  overflow: hidden;
 }
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
 .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
 .card-body h3 { margin-bottom: 8px; }
 .card-body p { flex: 1; font-size: 0.92rem; }
@@ -354,7 +359,7 @@ nav.main-nav a.nav-link.active { background: var(--gray-100); color: var(--steel
   height: 170px;
   border-radius: var(--radius);
   background: linear-gradient(135deg, var(--gray-200), var(--gray-100));
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: flex-end; justify-content: center;
   color: var(--gray-600);
   scroll-snap-align: start;
   border: 1px solid var(--gray-200);
@@ -362,6 +367,14 @@ nav.main-nav a.nav-link.active { background: var(--gray-100); color: var(--steel
   text-transform: uppercase;
   letter-spacing: 0.4px;
   font-size: 0.85rem;
+  overflow: hidden;
+  position: relative;
+}
+.gallery-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gallery-item span {
+  position: relative; z-index: 1; width: 100%;
+  background: linear-gradient(0deg, rgba(11,37,69,0.85), transparent);
+  color: var(--white); padding: 20px 12px 10px; text-align: center;
 }
 
 /* CTA banner */
@@ -396,7 +409,9 @@ nav.main-nav a.nav-link.active { background: var(--gray-100); color: var(--steel
   color: rgba(255,255,255,0.85);
   font-family: var(--font-head);
   text-transform: uppercase;
+  overflow: hidden;
 }
+.media-block img { width: 100%; height: 100%; object-fit: cover; min-height: 320px; }
 
 /* Table */
 .spec-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
@@ -454,7 +469,9 @@ nav.main-nav a.nav-link.active { background: var(--gray-100); color: var(--steel
 .product-media {
   height: 160px; background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
   display: flex; align-items: center; justify-content: center; color: var(--gray-600); position: relative;
+  overflow: hidden;
 }
+.product-media img { width: 100%; height: 100%; object-fit: cover; }
 .product-badge {
   position: absolute; top: 10px; left: 10px;
   background: var(--accent); color: var(--white);
