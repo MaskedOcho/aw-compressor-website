@@ -8,6 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('click', () => nav.classList.toggle('open'));
   }
 
+  // Dropdown nav groups (Products & Services / Company)
+  document.querySelectorAll('.dropdown-toggle').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const parent = btn.closest('.has-dropdown');
+      const isOpen = parent.classList.contains('open');
+      document.querySelectorAll('.has-dropdown.open').forEach((el) => {
+        if (el !== parent) el.classList.remove('open');
+      });
+      parent.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.has-dropdown')) {
+      document.querySelectorAll('.has-dropdown.open').forEach((el) => {
+        el.classList.remove('open');
+        el.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
   // Quote form (no backend wired up — placeholder submit handler)
   const quoteForm = document.querySelector('#quoteForm');
   if (quoteForm) {
