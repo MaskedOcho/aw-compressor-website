@@ -7,7 +7,8 @@
 <meta name="description" content="A&amp;W Compressor &amp; Mechanical Services proudly serves East Tennessee and surrounding areas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260904b">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="assets/css/style.css?v=20260904c">
 </head>
 <body>
 
@@ -88,11 +89,7 @@
         <a href="contact.html" class="btn btn-accent">Check Your Location</a>
       </div>
       <div>
-        <div id="service-map" class="map-block map-block-lg">
-          <div class="map-placeholder-msg">
-            Interactive map with pins for every service area loads once a Google Maps API key is added in <code>assets/js/maps-config.js</code>.
-          </div>
-        </div>
+        <div id="service-map" class="map-block map-block-lg"></div>
         <div class="map-legend">
           <span><span class="dot hq"></span> Headquarters</span>
           <span><span class="dot area"></span> Service Area</span>
@@ -159,8 +156,8 @@
   </div>
 </div>
 
-<script src="assets/js/main.js?v=20260904b"></script>
-<script src="assets/js/maps-config.js?v=20260904b"></script>
-<script src="assets/js/service-map.js?v=20260904b"></script>
+<script src="assets/js/main.js?v=20260904c"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="assets/js/service-map.js?v=20260904c"></script>
 </body>
 </html>
