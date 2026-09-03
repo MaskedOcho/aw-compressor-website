@@ -1,4 +1,4 @@
-// A&W Compressor & Mechanical Services — shared site behavior
+// A&W Compressor & Mechanical Services, shared site behavior
 
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile nav toggle
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Quote form (no backend wired up — placeholder submit handler)
+  // Quote form (no backend wired up, placeholder submit handler)
   const quoteForm = document.querySelector('#quoteForm');
   if (quoteForm) {
     quoteForm.addEventListener('submit', (e) => {
@@ -39,6 +39,90 @@ document.addEventListener('DOMContentLoaded', () => {
       quoteForm.reset();
     });
   }
+
+  // Generic fake-submit handler for the service and job application forms
+  document.querySelectorAll('.service-request-form, .job-application-form').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thanks! Your request has been received. Our team will follow up shortly.');
+      form.reset();
+    });
+  });
+
+  // Services page: tabbed service-specific request forms
+  const serviceContent = {
+    repair: {
+      title: 'Request Repair Service',
+      sub: "Tell us about the equipment that needs repair and we'll get back to you the same business day.",
+    },
+    rental: {
+      title: 'Check Rental Availability',
+      sub: 'Let us know what you need and for how long, and we’ll confirm what’s available.',
+    },
+    maintenance: {
+      title: 'Set Up A Maintenance Plan',
+      sub: "Tell us about your equipment and we'll put together a maintenance plan that fits.",
+    },
+    audit: {
+      title: 'Schedule A Compressed Air Audit',
+      sub: "Tell us about your facility and we'll schedule a time to find where you're losing efficiency.",
+    },
+  };
+
+  function activateServiceTab(service) {
+    document.querySelectorAll('.service-tab').forEach((tab) => {
+      tab.classList.toggle('active', tab.dataset.serviceTab === service);
+    });
+    document.querySelectorAll('.service-request-form').forEach((form) => {
+      form.hidden = form.dataset.serviceForm !== service;
+    });
+    const content = serviceContent[service];
+    if (content) {
+      const titleEl = document.querySelector('#requestServiceTitle');
+      const subEl = document.querySelector('#requestServiceSub');
+      if (titleEl) titleEl.textContent = content.title;
+      if (subEl) subEl.textContent = content.sub;
+    }
+  }
+
+  document.querySelectorAll('.service-tab').forEach((tab) => {
+    tab.addEventListener('click', () => activateServiceTab(tab.dataset.serviceTab));
+  });
+  document.querySelectorAll('[data-open-service]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activateServiceTab(btn.dataset.openService);
+      document.querySelector('#request-service')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Careers page: per-position application forms
+  const jobContent = {
+    technician: { title: 'Apply: Compressor Service Technician' },
+    sales: { title: 'Apply: Parts & Sales Coordinator' },
+    apprentice: { title: 'Apply: Field Service Apprentice' },
+  };
+
+  function activateJobTab(job) {
+    document.querySelectorAll('.job-tab').forEach((tab) => {
+      tab.classList.toggle('active', tab.dataset.jobTab === job);
+    });
+    document.querySelectorAll('.job-application-form').forEach((form) => {
+      form.hidden = form.dataset.jobForm !== job;
+    });
+    const content = jobContent[job];
+    const titleEl = document.querySelector('#jobApplicationTitle');
+    if (content && titleEl) titleEl.textContent = content.title;
+  }
+
+  document.querySelectorAll('.job-tab').forEach((tab) => {
+    tab.addEventListener('click', () => activateJobTab(tab.dataset.jobTab));
+  });
+  document.querySelectorAll('[data-open-job]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activateJobTab(btn.dataset.openJob);
+      document.querySelector('#job-application')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 
   initCart();
 });

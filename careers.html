@@ -31,7 +31,7 @@
       <ul>
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li class="has-dropdown">
-          <button type="button" class="nav-link dropdown-toggle" aria-expanded="false">Products &amp; Services <span class="caret">&#9662;</span></button>
+          <button type="button" class="nav-link dropdown-toggle" aria-expanded="false">Products &amp; Services <span class="caret"><svg viewBox="0 0 12 8" width="10" height="7"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
           <ul class="dropdown-menu">
             <li><a href="services.html" class="dropdown-link">Services</a></li>
             <li><a href="compressors.html" class="dropdown-link">Compressors</a></li>
@@ -41,7 +41,7 @@
         </li>
         <li><a href="shop.html" class="nav-link">Shop</a></li>
         <li class="has-dropdown">
-          <button type="button" class="nav-link dropdown-toggle active" aria-expanded="false">Company <span class="caret">&#9662;</span></button>
+          <button type="button" class="nav-link dropdown-toggle active" aria-expanded="false">Company <span class="caret"><svg viewBox="0 0 12 8" width="10" height="7"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
           <ul class="dropdown-menu">
             <li><a href="about.html" class="dropdown-link">About Us</a></li>
             <li><a href="industries-served.html" class="dropdown-link">Industries Served</a></li>
@@ -76,7 +76,7 @@
           <span class="product-cat">Full-Time</span>
           <h3>Compressor Service Technician</h3>
           <p>Diagnose and repair air compressors, dryers and related equipment in the field and in-shop. Experience with rotary screw compressors preferred.</p>
-          <a href="contact.html" class="card-link">Apply Now →</a>
+          <button type="button" class="card-link" data-open-job="technician">Apply Now →</button>
         </div>
       </div>
       <div class="service-card">
@@ -84,7 +84,7 @@
           <span class="product-cat">Full-Time</span>
           <h3>Parts &amp; Sales Coordinator</h3>
           <p>Manage parts inventory, source equipment, and support customers with quotes and order fulfillment.</p>
-          <a href="contact.html" class="card-link">Apply Now →</a>
+          <button type="button" class="card-link" data-open-job="sales">Apply Now →</button>
         </div>
       </div>
       <div class="service-card">
@@ -92,14 +92,131 @@
           <span class="product-cat">Full-Time</span>
           <h3>Field Service Apprentice</h3>
           <p>Entry-level opportunity to learn compressed air system service and repair alongside our experienced technicians.</p>
-          <a href="contact.html" class="card-link">Apply Now →</a>
+          <button type="button" class="card-link" data-open-job="apprentice">Apply Now →</button>
         </div>
       </div>
     </div>
-    <div class="section-head" style="margin-top:56px;">
+  </div>
+</section>
+
+<section class="section-alt" id="job-application">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Apply Now</span>
+      <h2 id="jobApplicationTitle">Apply: Compressor Service Technician</h2>
+      <p>Fill out the form below and our hiring team will follow up with next steps.</p>
+    </div>
+
+    <div class="job-tabs">
+      <button type="button" class="job-tab active" data-job-tab="technician">Compressor Service Technician</button>
+      <button type="button" class="job-tab" data-job-tab="sales">Parts &amp; Sales Coordinator</button>
+      <button type="button" class="job-tab" data-job-tab="apprentice">Field Service Apprentice</button>
+    </div>
+
+    <div class="quote-card service-request-card">
+
+      <form class="job-application-form" data-job-form="technician" id="job-technician">
+        <div class="job-detail-note"><strong>Position:</strong> Compressor Service Technician (Full-Time)</div>
+        <div class="form-row">
+          <div class="form-field"><label>Full Name</label><input type="text" required></div>
+          <div class="form-field"><label>Phone</label><input type="tel" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Email</label><input type="email" required></div>
+          <div class="form-field"><label>Earliest Start Date</label><input type="date"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Years Of Compressor / Mechanical Repair Experience</label>
+            <select>
+              <option>Less Than 1 Year</option>
+              <option>1 to 3 Years</option>
+              <option>3 to 5 Years</option>
+              <option>5+ Years</option>
+            </select>
+          </div>
+          <div class="form-field"><label>Brands / Equipment You've Worked With</label><input type="text" placeholder="e.g. Atlas Copco, Quincy, Kaeser"></div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field"><label>Tell Us About Your Experience</label><textarea placeholder="Relevant work history, certifications, etc."></textarea></div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field"><label>Resume (optional)</label><input type="file" accept=".pdf,.doc,.docx"></div>
+        </div>
+        <button type="submit" class="btn btn-accent btn-block">Submit Application</button>
+      </form>
+
+      <form class="job-application-form" data-job-form="sales" id="job-sales" hidden>
+        <div class="job-detail-note"><strong>Position:</strong> Parts &amp; Sales Coordinator (Full-Time)</div>
+        <div class="form-row">
+          <div class="form-field"><label>Full Name</label><input type="text" required></div>
+          <div class="form-field"><label>Phone</label><input type="tel" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Email</label><input type="email" required></div>
+          <div class="form-field"><label>Earliest Start Date</label><input type="date"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Experience With Parts Inventory Or Customer Service</label>
+            <select>
+              <option>Less Than 1 Year</option>
+              <option>1 to 3 Years</option>
+              <option>3 to 5 Years</option>
+              <option>5+ Years</option>
+            </select>
+          </div>
+          <div class="form-field"><label>Relevant Software / Systems Experience</label><input type="text" placeholder="e.g. inventory systems, CRM, QuickBooks"></div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field"><label>Tell Us About Your Experience</label><textarea placeholder="Relevant work history, certifications, etc."></textarea></div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field"><label>Resume (optional)</label><input type="file" accept=".pdf,.doc,.docx"></div>
+        </div>
+        <button type="submit" class="btn btn-accent btn-block">Submit Application</button>
+      </form>
+
+      <form class="job-application-form" data-job-form="apprentice" id="job-apprentice" hidden>
+        <div class="job-detail-note"><strong>Position:</strong> Field Service Apprentice (Full-Time)</div>
+        <div class="form-row">
+          <div class="form-field"><label>Full Name</label><input type="text" required></div>
+          <div class="form-field"><label>Phone</label><input type="tel" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Email</label><input type="email" required></div>
+          <div class="form-field"><label>Earliest Start Date</label><input type="date"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Any Mechanical Or Trade Experience?</label>
+            <select>
+              <option>None Yet, Eager To Learn</option>
+              <option>Some Hands-On Experience</option>
+              <option>Formal Trade Training</option>
+            </select>
+          </div>
+          <div class="form-field"><label>Trade School / Program (if any)</label><input type="text" placeholder="Optional"></div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field"><label>Tell Us About Yourself</label><textarea placeholder="Why you're interested in this role..."></textarea></div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field"><label>Resume (optional)</label><input type="file" accept=".pdf,.doc,.docx"></div>
+        </div>
+        <button type="submit" class="btn btn-accent btn-block">Submit Application</button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
       <span class="eyebrow">Don't See A Fit?</span>
       <h2>We're Always Looking For Good People</h2>
-      <p>Send us your resume — we'll keep it on file for future openings.</p>
+      <p>Send us your resume and we'll keep it on file for future openings.</p>
       <a href="contact.html" class="btn btn-accent">Submit Your Resume</a>
     </div>
   </div>
@@ -112,7 +229,7 @@
         <div class="brand" style="margin-bottom:14px;">
           <img src="assets/images/logo-white.png" alt="A&amp;W Compressor &amp; Mechanical Services, Inc." class="brand-logo-img">
         </div>
-        <p style="color:#9fb0c5; font-size:0.88rem;">Family-owned and operated since 1982, serving East Tennessee with honest, reliable compressed-air expertise — sales, service, rental and 24/7 emergency support.</p>
+        <p style="color:#9fb0c5; font-size:0.88rem;">Family-owned and operated since 1982, serving East Tennessee with honest, reliable compressed-air expertise in sales, service, rental and 24/7 emergency support.</p>
         <div class="footer-social"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="LinkedIn">in</a></div>
       </div>
       <div>
@@ -147,7 +264,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 A&amp;W Compressor &amp; Mechanical Services, Inc. All rights reserved.</span>
-      <span>Site design &amp; development by your team</span>
+      <span>Site design &amp; development by TheOchoCollective</span>
     </div>
   </div>
 </footer>
