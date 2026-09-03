@@ -30,7 +30,6 @@ function initServiceMap() {
   if (!mapEl || typeof google === "undefined") return;
 
   mapEl.innerHTML = "";
-  mapEl.classList.remove("map-block");
   mapEl.classList.add("map-live");
 
   var map = new google.maps.Map(mapEl, {
