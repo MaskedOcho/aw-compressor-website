@@ -81,7 +81,7 @@
       <span style="font-size:0.85rem; color:var(--gray-600);">More categories added as new projects come in.</span>
     </div>
 
-    <div class="gallery-grid">
+    <div class="gallery-grid" id="galleryGrid">
 
       <div class="gallery-card" data-category="piping">
         <div class="gallery-card-media"><img src="assets/images/photo-accessories.jpg" alt="Piping install — placeholder photo"></div>
@@ -115,7 +115,7 @@
 
     </div>
 
-    <p style="text-align:center; margin-top:32px; font-size:0.85rem;">Photos shown are placeholders from our equipment library. Swap in real completed-job photos any time — see the checklist for how categories can be added.</p>
+    <p style="text-align:center; margin-top:32px; font-size:0.85rem;">Photos shown are placeholders from our equipment library until the Google Drive galleries are connected — see metadata/google-drive-gallery-setup.md.</p>
   </div>
 </section>
 
@@ -178,16 +178,19 @@
 </div>
 
 <script src="assets/js/main.js?v=20260909a"></script>
+<script src="assets/js/gallery-config.js?v=20260909a"></script>
+<script src="assets/js/gallery-drive.js?v=20260909a"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const chips = document.querySelectorAll('.filter-chip');
-    const cards = document.querySelectorAll('.gallery-card');
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
         chips.forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         const cat = chip.dataset.filter;
-        cards.forEach(card => {
+        // Query live each click so this still works after gallery-drive.js
+        // replaces the placeholder cards with Drive-loaded photos.
+        document.querySelectorAll('.gallery-card').forEach(card => {
           card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
         });
       });
