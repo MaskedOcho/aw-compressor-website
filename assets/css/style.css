@@ -384,7 +384,7 @@ button.card-link { background: none; border: none; padding: 0; cursor: pointer; 
 .job-detail-note strong { color: var(--navy); }
 
 /* Industries */
-.industry-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.industry-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .industry-tile {
   background: var(--navy);
   color: var(--white);
@@ -523,6 +523,44 @@ button.card-link { background: none; border: none; padding: 0; cursor: pointer; 
 .map-legend .dot.hq { background: var(--accent); }
 .map-legend .dot.area { background: var(--steel-light); }
 
+/* Partners page */
+.partner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.partner-card {
+  background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius);
+  padding: 28px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+a.partner-card-link:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.partner-card-logo { height: 56px; display: flex; align-items: center; margin-bottom: 10px; }
+.partner-card-logo img { max-height: 56px; width: auto; object-fit: contain; }
+.partner-card h3 { margin-bottom: 2px; }
+.partner-card .card-link { margin-top: auto; padding-top: 8px; }
+.text-logo {
+  font-family: var(--font-head); font-weight: 700; font-size: 1.5rem;
+  color: var(--navy); letter-spacing: 0.5px; text-transform: uppercase;
+}
+.logo-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--navy); border-radius: 6px; padding: 10px 14px;
+}
+.logo-chip img { height: 22px; width: auto; }
+
+/* Gallery page */
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.gallery-card {
+  background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+}
+.gallery-card-media { height: 190px; overflow: hidden; }
+.gallery-card-media img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-card-body { padding: 16px; }
+.gallery-card-body h3 { font-size: 1rem; text-transform: none; margin: 4px 0 0; }
+
+/* Shops (Contact page) */
+.shops-list { display: flex; flex-direction: column; gap: 10px; }
+.shops-list-item { font-size: 0.92rem; }
+.shops-list-item strong { display: block; color: var(--navy); }
+
 /* Shop */
 .shop-toolbar {
   display: flex; justify-content: space-between; align-items: center;
@@ -623,6 +661,7 @@ footer.site-footer { background: var(--navy-dark); color: #b9c7da; padding: 64px
   .industry-strip { grid-template-columns: repeat(3, 1fr); }
   .staff-grid { grid-template-columns: repeat(2, 1fr); }
   .shop-grid { grid-template-columns: repeat(3, 1fr); }
+  .partner-grid, .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -647,7 +686,7 @@ footer.site-footer { background: var(--navy-dark); color: #b9c7da; padding: 64px
   }
   .has-dropdown.open .dropdown-menu { max-height: 400px; padding: 6px 0; }
   .dropdown-menu a.dropdown-link { padding: 10px 14px 10px 28px; font-size: 0.85rem; }
-  .value-grid, .card-grid, .card-grid.cols-2, .card-grid.cols-3, .industry-strip, .staff-grid, .shop-grid { grid-template-columns: 1fr; }
+  .value-grid, .card-grid, .card-grid.cols-2, .card-grid.cols-3, .industry-strip, .staff-grid, .shop-grid, .partner-grid, .gallery-grid { grid-template-columns: 1fr; }
   .split { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }

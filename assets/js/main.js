@@ -174,10 +174,6 @@ function changeQty(id, delta) {
   renderCartDrawer();
 }
 
-function cartTotal() {
-  return getCart().reduce((sum, item) => sum + item.price * item.qty, 0);
-}
-
 function updateCartCount() {
   const countEls = document.querySelectorAll('.cart-count');
   const count = getCart().reduce((sum, item) => sum + item.qty, 0);
@@ -212,7 +208,6 @@ function renderCartDrawer() {
       <div class="thumb">${item.icon || '⚙'}</div>
       <div class="info">
         <strong>${item.name}</strong>
-        <span>$${item.price.toFixed(2)} each</span>
         <div class="qty-control">
           <button onclick="changeQty('${item.id}', -1)">−</button>
           <span>${item.qty}</span>
@@ -222,9 +217,6 @@ function renderCartDrawer() {
       <button class="remove-line" onclick="removeFromCart('${item.id}')" aria-label="Remove">✕</button>
     </div>
   `).join('');
-
-  const totalEl = document.querySelector('#cartTotal');
-  if (totalEl) totalEl.textContent = '$' + cartTotal().toFixed(2);
 }
 
 function initCart() {
