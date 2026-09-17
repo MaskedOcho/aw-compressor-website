@@ -232,16 +232,18 @@ function initCart() {
   document.querySelector('.cart-drawer-close')?.addEventListener('click', closeCart);
   document.querySelector('.overlay')?.addEventListener('click', closeCart);
 
-  document.querySelectorAll('[data-add-to-cart]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const product = {
-        id: btn.dataset.id,
-        name: btn.dataset.name,
-        price: parseFloat(btn.dataset.price),
-        icon: btn.dataset.icon || '⚙'
-      };
-      addToCart(product);
-    });
+  // Delegated so it still works for product cards added after page load
+  // (e.g. the Google Sheet-backed shop catalog in shop-sheet.js).
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-add-to-cart]');
+    if (!btn) return;
+    const product = {
+      id: btn.dataset.id,
+      name: btn.dataset.name,
+      price: parseFloat(btn.dataset.price),
+      icon: btn.dataset.icon || '⚙'
+    };
+    addToCart(product);
   });
 
   // Shop filter chips

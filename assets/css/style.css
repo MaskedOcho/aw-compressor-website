@@ -592,6 +592,7 @@ a.partner-card-link:hover { transform: translateY(-4px); box-shadow: var(--shado
 }
 .product-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
 .product-cat { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-600); font-weight: 700; }
+.product-part { font-size: 0.78rem; color: var(--gray-600); margin: 0 0 8px; }
 .product-body h3 { font-size: 1.02rem; text-transform: none; margin: 4px 0 6px; }
 .product-price { font-family: var(--font-head); font-size: 1.25rem; color: var(--navy); font-weight: 700; margin: 4px 0 12px; }
 .product-price .was { font-size: 0.85rem; color: var(--gray-600); text-decoration: line-through; font-weight: 400; margin-right: 6px; }
