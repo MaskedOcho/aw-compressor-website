@@ -135,12 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
     wireEmailForm(quoteForm, (fields) => `New Website Request – ${fields['Full Name'] || 'Customer'}`);
   }
 
-  // Job application forms (not emailed yet: resume uploads need a paid form plan)
+  // Job application forms: emailed via sendFormEmail() (no resume upload; free plan has no attachments)
   document.querySelectorAll('.job-application-form').forEach((form) => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thanks! Your request has been received. Our team will follow up shortly.');
-      form.reset();
+    const position = form.querySelector('.job-detail-note')?.textContent.replace(/^\s*Position:\s*/, '').trim() || 'Open Position';
+    wireEmailForm(form, (fields) => {
+      fields['Position'] = position;
+      return `Job Application: ${position.replace(/\s*\(.*\)$/, '')} – ${fields['Full Name'] || 'Applicant'}`;
     });
   });
 

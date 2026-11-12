@@ -57,7 +57,7 @@ Ask ACTWD to restore the apex A record to `34.193.71.224` and `www` CNAME to `aw
 
 - **Form email needs its Access Key.** The cart checkout, Home/Contact quote form and the four Services forms all email
   through Web3Forms. Get a free key at https://web3forms.com for the receiving inbox and paste it into `FORM_ACCESS_KEY`
-  at the top of `assets/js/main.js`. Until then, forms tell customers to call. Job applications still don't send
-  (resume uploads need a paid plan).
-- **An old Google Maps API key (`AIzaSyCKWF…`) is still in the git history** (commit `476e823`) of this public repo.
-  The site no longer uses it, but it should be deleted or restricted in Google Cloud Console.
+  at the top of `assets/js/main.js`. Until then, forms tell customers to call. Job applications are emailed too,
+  without a resume upload (the free plan has no attachments).
+- **Old Google Maps API key:** removed from this repo's git history on 2026-11-12. It was public for a while,
+  so delete or restrict it in Google Cloud Console (APIs & Services → Credentials). The site uses Leaflet/OpenStreetMap now.
