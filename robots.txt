@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /checkout.html
+
+Sitemap: https://www.awcompressor.com/sitemap.xml
