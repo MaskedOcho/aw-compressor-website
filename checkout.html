@@ -171,7 +171,7 @@
   </div>
 </div>
 
-<script src="assets/js/main.js?v=20260909a"></script>
+<script src="assets/js/main.js?v=20261112a"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const itemsEl = document.querySelector('#checkoutItems');
@@ -189,23 +189,38 @@
     renderItems();
 
     const form = document.querySelector('#checkoutForm');
-    form.addEventListener('submit', (e) => {
+    const trap = addHoneypot(form);
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!cart.length) {
         alert('Your cart is empty. Add at least one item before submitting a quote request.');
         return;
       }
-      const data = Object.fromEntries(new FormData(form).entries());
-      const payload = { contact: data, items: cart };
+      const d = Object.fromEntries(new FormData(form).entries());
+      const name = `${d.firstName} ${d.lastName}`.trim();
+      const cityLine = [d.city, [d.state, d.zip].filter(Boolean).join(' ')].filter(Boolean).join(', ');
 
-      // TODO: this site is static (no backend). Wire this payload to your form
-      // delivery service of choice (e.g. Formspree, Netlify Forms) so it reaches
-      // awcompress@comcast.net. For now the request is only logged locally.
-      console.log('Quote request payload (not yet sent to a backend):', payload);
+      // Field order here is the row order in the email A&W receives.
+      const fields = {
+        'Customer Name': name,
+        'Company': d.company || '—',
+        'Email': d.email,
+        'Phone': d.phone,
+        'Address': [d.address, cityLine].filter(Boolean).join(', ') || '—',
+        'Total Items': String(cart.reduce((sum, item) => sum + item.qty, 0)),
+      };
+      cart.forEach((item, i) => {
+        fields[`Item ${i + 1}`] = `${item.name}  (Qty ${item.qty})`;
+      });
+      fields['Notes / Project Details'] = d.notes || '—';
+
+      const subject = `New Quote Request – ${name}${d.company ? ` (${d.company})` : ''}`;
+      const sent = await submitWithEmail(form, () => sendFormEmail(subject, fields, d.email, trap.checked));
+      if (!sent) return; // cart and form are kept so the customer can retry or call
 
       localStorage.removeItem(CART_KEY);
       updateCartCount();
-      itemsEl.innerHTML = '<div class="cart-empty">Thanks! Your quote request has been submitted.<br>Our team will follow up the same business day.</div>';
+      itemsEl.innerHTML = '<div class="cart-empty">Thanks! Your quote request has been sent.<br>Our team will follow up the same business day.</div>';
       form.hidden = true;
     });
   });

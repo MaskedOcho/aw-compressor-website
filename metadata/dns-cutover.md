@@ -55,7 +55,9 @@ Ask ACTWD to restore the apex A record to `34.193.71.224` and `www` CNAME to `aw
 
 ## Open items (not DNS-related)
 
-- **Quote and contact forms don't send anything yet.** See `update-summary-2026-09-09.md`. They need Formspree (or similar) before launch,
-  or customers' requests on the new site are lost.
+- **Form email needs its Access Key.** The cart checkout, Home/Contact quote form and the four Services forms all email
+  through Web3Forms. Get a free key at https://web3forms.com for the receiving inbox and paste it into `FORM_ACCESS_KEY`
+  at the top of `assets/js/main.js`. Until then, forms tell customers to call. Job applications still don't send
+  (resume uploads need a paid plan).
 - **An old Google Maps API key (`AIzaSyCKWF…`) is still in the git history** (commit `476e823`) of this public repo.
   The site no longer uses it, but it should be deleted or restricted in Google Cloud Console.

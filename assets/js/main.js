@@ -1,5 +1,104 @@
 // A&W Compressor & Mechanical Services, shared site behavior
 
+/* ---------------- Form email delivery (Web3Forms) ----------------
+ * Every quote/contact/service form and the cart checkout send their
+ * submission as an email through Web3Forms (free, no server needed).
+ *
+ * SETUP: go to https://web3forms.com, enter the email address that should
+ * receive requests, and paste the Access Key it emails you below.
+ * The key is safe to be public; it can only send to that one inbox.
+ * While it's blank, forms show "please call us" instead of pretending to send.
+ */
+const FORM_ACCESS_KEY = '';
+const FORM_ENDPOINT = 'https://api.web3forms.com/submit';
+const FORM_FAIL_MSG = "Sorry, we couldn't send your request online. Please call us at 1-888-716-0725 and we'll take care of you.";
+
+async function sendFormEmail(subject, fields, replyTo, botcheck) {
+  if (!FORM_ACCESS_KEY) throw new Error('Form email is not configured yet');
+  const res = await fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: FORM_ACCESS_KEY,
+      subject,
+      from_name: 'A&W Compressor Website',
+      replyto: replyTo || undefined,
+      botcheck: botcheck || false,
+      ...fields,
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.success) throw new Error(data.message || `Send failed (${res.status})`);
+}
+
+// Read a form's fields as { "Label Text": value }, so the email matches what the customer saw.
+function collectFormFields(form) {
+  const fields = {};
+  form.querySelectorAll('.form-field').forEach((field) => {
+    const input = field.querySelector('input, select, textarea');
+    if (!input || input.type === 'file') return;
+    const label = field.querySelector('label');
+    const key = label ? label.textContent.replace(/\s*\(optional\)\s*$/i, '').trim() : input.name;
+    if (key) fields[key] = input.value.trim() || '—';
+  });
+  return fields;
+}
+
+// Hidden honeypot checkbox: real people never see or tick it, spam bots do.
+function addHoneypot(form) {
+  const trap = document.createElement('input');
+  Object.assign(trap, { type: 'checkbox', name: 'botcheck', tabIndex: -1, autocomplete: 'off' });
+  trap.setAttribute('aria-hidden', 'true');
+  trap.style.display = 'none';
+  form.appendChild(trap);
+  return trap;
+}
+
+function setFormStatus(form, message, ok) {
+  let status = form.querySelector('.form-status');
+  if (!status) {
+    status = document.createElement('p');
+    status.className = 'form-status';
+    status.setAttribute('role', 'status');
+    form.appendChild(status);
+  }
+  status.textContent = message;
+  status.style.cssText = `margin:12px 0 0;font-weight:600;color:${ok ? '#1d7a3a' : '#b42318'};`;
+}
+
+// Submit handler shared by every emailed form: disables the button while sending,
+// keeps what the customer typed if it fails.
+async function submitWithEmail(form, send) {
+  const btn = form.querySelector('[type="submit"]');
+  const original = btn?.textContent;
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  try {
+    await send();
+    return true;
+  } catch (err) {
+    console.error('Form email failed:', err);
+    setFormStatus(form, FORM_FAIL_MSG, false);
+    return false;
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = original; }
+  }
+}
+
+function wireEmailForm(form, subjectFor) {
+  const trap = addHoneypot(form);
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fields = collectFormFields(form);
+    fields['Page'] = document.title.split('|')[0].trim();
+    const sent = await submitWithEmail(form, () =>
+      sendFormEmail(subjectFor(fields), fields, fields['Email'], trap.checked));
+    if (sent) {
+      form.reset();
+      setFormStatus(form, "Thanks! Your request has been sent. Our team will follow up the same business day.", true);
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile nav toggle
   const toggle = document.querySelector('.nav-toggle');
@@ -30,18 +129,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Quote form (no backend wired up, placeholder submit handler)
+  // Quote / contact form (Home + Contact pages): emailed via sendFormEmail()
   const quoteForm = document.querySelector('#quoteForm');
   if (quoteForm) {
-    quoteForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thanks! Your request has been received. Our team will follow up shortly.');
-      quoteForm.reset();
-    });
+    wireEmailForm(quoteForm, (fields) => `New Website Request – ${fields['Full Name'] || 'Customer'}`);
   }
 
-  // Generic fake-submit handler for the service and job application forms
-  document.querySelectorAll('.service-request-form, .job-application-form').forEach((form) => {
+  // Job application forms (not emailed yet: resume uploads need a paid form plan)
+  document.querySelectorAll('.job-application-form').forEach((form) => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       alert('Thanks! Your request has been received. Our team will follow up shortly.');
@@ -68,6 +163,12 @@ document.addEventListener('DOMContentLoaded', () => {
       sub: "Tell us about your facility and we'll schedule a time to find where you're losing efficiency.",
     },
   };
+
+  // Services page request forms: emailed via sendFormEmail()
+  document.querySelectorAll('.service-request-form').forEach((form) => {
+    const title = serviceContent[form.dataset.serviceForm]?.title || 'Service Request';
+    wireEmailForm(form, (fields) => `${title} – ${fields['Full Name'] || 'Customer'}`);
+  });
 
   function activateServiceTab(service) {
     document.querySelectorAll('.service-tab').forEach((tab) => {
